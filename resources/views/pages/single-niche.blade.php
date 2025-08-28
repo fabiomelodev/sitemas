@@ -36,7 +36,7 @@
                             <button
                             class="btn-pattern text-xs lg:text-lg font-bold uppercase px-4 lg:px-6"
                             type="submit">
-                                Começar agora
+                                Começar agora!
                             </button>
                         </form>
                     </div>
