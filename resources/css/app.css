@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-family: 'Inter', sans-serif;
+    }
+}
+
+@layer components {
+    .bg-gradient-blue-purple {
+        @apply bg-gradient-to-r from-dodger-blue-400 via-electric-violet-700 to-magenta-/-fuchsia-600;
+    }
+
+    .btn-pattern {
+        @apply transition hover:scale-90 rounded-full inline-block text-center text-white bg-gradient-blue-purple py-2 px-6;
+    }
+
+    .btn-pattern-remove {
+        @apply bg-none bg-red-500;
+    }
+
+    .banner {
+        @apply h-[480px] lg:h-[626px] px-2 lg:px-8;
+    }
+
+    .banner-wrapper {
+        @apply  h-full rounded-[40px] overflow-hidden flex justify-center items-center bg-gradient-blue-purple;
+    }
+
+    .banner-search {
+        @apply h-[60px] border-4 border-white rounded-full overflow-hidden flex justify-between gap-2 bg-white mt-10;
+    }
+
+    .banner-search-field {
+        @apply w-72 rounded-full text-sm lg:text-base bg-white px-2 lg:px-6;
+    }
+
+    .plans {
+        @apply px-2 lg:px-8;
+    }
+
+    .plans-wrapper {
+        @apply rounded-[40px] overflow-hidden bg-gradient-blue-purple py-10 lg:py-20;
+    }
+
+    .step-wrapper {
+        @apply shadow-lg rounded-[40px] flex justify-around bg-gradient-blue-purple px-28;
+    }
+
+    .title-pattern {
+        @apply text-3xl lg:text-[44px] font-bold;
+        line-height: 100%
+    }
+}
+
+.swiper-pagination-modules {
+    transform: translateY(2rem) !important;
+}
+
+.swiper-pagination-modules .swiper-pagination-bullet-active {
+    width: 20px;
+    border-radius: 10px;
+    background-color: #24223E;
+}

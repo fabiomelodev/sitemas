@@ -13,7 +13,17 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            UserSeeder::class
+            UserSeeder::class,
+            FaqSeeder::class,
+            NicheSeeder::class,
+            TemplateSeeder::class,
+            FeatureSeeder::class,
+            DomainSeeder::class,
+            PlanSeeder::class,
+            // OrderSeeder::class,
+            NicheTemplateSeeder::class,
+            NichePlanSeeder::class,
+            TemplateFeatureSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();
