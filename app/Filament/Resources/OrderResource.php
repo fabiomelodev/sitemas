@@ -81,12 +81,16 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('domain.title')
+                Tables\Columns\TextColumn::make('domain.full_domain')
                     ->label('Domínio'),
-                Tables\Columns\TextColumn::make('company')
+                Tables\Columns\TextColumn::make('customer.company')
                     ->label('Empresa'),
-                Tables\Columns\TextColumn::make('email')
+                Tables\Columns\TextColumn::make('customer.email')
                     ->label('E-mail'),
+                Tables\Columns\TextColumn::make('plan.title')
+                    ->label('Plano'),
+                Tables\Columns\TextColumn::make('plan.value')
+                    ->label('Valor'),
                 Tables\Columns\TextColumn::make('payment_status')
                     ->label('Pagamento')
                     ->badge()
