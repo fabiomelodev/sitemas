@@ -17,15 +17,18 @@
                         </h3>
 
                         <p class="text-sm font-medium text-gray-700">
-                            {{ $order->domain()->first()->title }}
+                            {{ $order->domain()->first()->full_domain }}
                         </p>
                     </div>
 
-                    <a
-                    class="text-lg font-bold text-gray-800"
-                    href="#">
-                        Editar
-                    </a>
+                    <form method="POST" action="{{ route('order.back', ['niche' => $niche, 'order' => $order, 'step' => 1]) }}">
+                        @csrf
+                        <button
+                        class="transition hover:scale-90 text-lg font-bold text-gray-800"
+                        type="submit">
+                            Editar
+                        </button>
+                    </form>
                 </div>
 
                 <div class="shadow-lg border rounded-3xl flex justify-between items-center py-4 px-8">
@@ -40,11 +43,14 @@
                         </p>
                     </div>
 
-                    <a
-                    class="text-lg font-bold text-gray-800"
-                    href="#">
-                        Editar
-                    </a>
+                    <form method="POST" action="{{ route('order.back', ['niche' => $niche, 'order' => $order, 'step' => 2]) }}">
+                        @csrf
+                        <button
+                        class="transition hover:scale-90 text-lg font-bold text-gray-800"
+                        type="submit">
+                            Editar
+                        </button>
+                    </form>
                 </div>
 
                 <div class="shadow-lg border rounded-3xl flex justify-between items-center py-4 px-8">
@@ -59,11 +65,14 @@
                         </p>
                     </div>
 
-                    <a
-                    class="text-lg font-bold text-gray-800"
-                    href="#">
-                        Editar
-                    </a>
+                    <form method="POST" action="{{ route('order.back', ['niche' => $niche, 'order' => $order, 'step' => 3]) }}">
+                        @csrf
+                        <button
+                        class="transition hover:scale-90 text-lg font-bold text-gray-800"
+                        type="submit">
+                            Editar
+                        </button>
+                    </form>
                 </div>
 
                 <div class="shadow-lg border rounded-3xl flex justify-between items-center py-4 px-8">
@@ -81,11 +90,14 @@
                         </p>
                     </div>
 
-                    <a
-                    class="text-lg font-bold text-gray-800"
-                    href="#">
-                        Editar
-                    </a>
+                    <form method="POST" action="{{ route('order.back', ['niche' => $niche, 'order' => $order, 'step' => 4]) }}">
+                        @csrf
+                        <button
+                        class="transition hover:scale-90 text-lg font-bold text-gray-800"
+                        type="submit">
+                            Editar
+                        </button>
+                    </form>
                 </div>
             </div>
 
@@ -106,8 +118,8 @@
                     <div class="flex justify-center">
                         <a
                         class="inline-block shadow-lg rounded-full text-sm font-bold text-white bg-green-300 mt-12 py-3 px-8"
-                        href="#">
-                            Pagar
+                        href="{{ $whatsappText }}">
+                            Pagar no Whatsapp
                         </a>
                     </div>
                 </div>

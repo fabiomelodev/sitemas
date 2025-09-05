@@ -21,7 +21,7 @@
                     <p
                     class="text-2xl lg:text-[44px] font-medium text-center text-white mb-10"
                     style="line-height:100%">
-                        pronto, moderno e funcionando <br />
+                        pronto, moderno e funcional <br />
                         por assinatura mensal
                     </p>
 
@@ -34,7 +34,7 @@
                             @csrf
 
                             <button
-                            class="btn-pattern text-xs lg:text-lg font-bold uppercase px-4 lg:px-6"
+                            class="btn-pattern text-xs lg:text-lg font-bold uppercase text-electric-violet-700 bg-gradient-to-r from-white to-white px-4 lg:px-6"
                             type="submit">
                                 Começar agora!
                             </button>

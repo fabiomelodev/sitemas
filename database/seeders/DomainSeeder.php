@@ -14,27 +14,37 @@ class DomainSeeder extends Seeder
     public function run(): void
     {
         DB::table('domains')->insert([
-            'title'      => 'seusite.sitemas.com.br',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
+            [
+                'name'        => 'seusite',
+                'full_domain' => 'seusite.sitemas.com.br',
+                'order_id'    => null,
+                'created_at'  => now(),
+                'updated_at'  => now()
+            ],
 
-        DB::table('domains')->insert([
-            'title'      => 'seusite1.sitemas.com.br',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
+            [
+                'name'        => 'seusite1',
+                'full_domain' => 'seusite1.sitemas.com.br',
+                'order_id'    => null,
+                'created_at'  => now(),
+                'updated_at'  => now()
+            ],
 
-        DB::table('domains')->insert([
-            'title'      => 'seusite2.sitemas.com.br',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
+            [
+                'name'        => 'seusite2',
+                'full_domain' => 'seusite2.sitemas.com.br',
+                'order_id'    => null,
+                'created_at'  => now(),
+                'updated_at'  => now()
+            ],
 
-        DB::table('domains')->insert([
-            'title'      => 'seusite3.sitemas.com.br',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
+            [
+                'name'        => 'seusite3',
+                'full_domain' => 'seusite3.sitemas.com.br',
+                'order_id'    => null,
+                'created_at'  => now(),
+                'updated_at'  => now()
+            ]
         ]);
     }
 }

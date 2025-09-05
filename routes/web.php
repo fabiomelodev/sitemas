@@ -31,6 +31,7 @@ Route::get('/nicho/{niche:slug}/pedido/{order:uuid}', [OrderController::class, '
 
 Route::get('/nicho/{niche:slug}/checkout/{order:uuid}/', [OrderController::class, 'checkout'])->name('order.checkout');
 
+Route::post('/nicho/{niche:slug}/pedido/{order:uuid}/voltar/{step}', [OrderController::class, 'back'])->name('order.back');
 // Route::post('/mercadopago/planos', [MercadoPagoController::class, 'createPlan'])->name('mercadopago.createPlan');
 
 // Route::post('/mercadopago/webhook', [MercadoPagoController::class, 'webhook']);

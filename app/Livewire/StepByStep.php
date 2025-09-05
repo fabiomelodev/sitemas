@@ -25,6 +25,8 @@ class StepByStep extends Component
 
     public string $subdomain;
 
+    public $domainCurrent;
+
     public $planCurrent;
 
     public $selectedPlanId = null;
@@ -39,7 +41,7 @@ class StepByStep extends Component
 
     public bool $availableSubdomain = false;
 
-    public string $guidance = '0x Plano selecionado';
+    public string $guidance = 'Escolha o seu domínio para prosseguir!';
 
     public bool $showButtonSubmit = false;
 
@@ -74,11 +76,15 @@ class StepByStep extends Component
 
         $this->order = $order;
 
+        $this->orderHasDomain();
+
         $this->orderHasPlan();
 
         $this->orderHasTemplate();
 
         $this->orderHasStepCurrent();
+
+        $this->orderHasStepCurrentParams();
     }
 
     public function steps()
@@ -134,6 +140,15 @@ class StepByStep extends Component
         $this->buttonNextStatus = false;
 
         $this->guidance = '0x Plano selecionado';
+    }
+
+    public function orderHasDomain()
+    {
+        if ($this->order->domain()->exists()) {
+            $this->domainCurrent = $this->order->domain()->first();
+
+            $this->subdomain = $this->domainCurrent->name;
+        }
     }
 
     public function orderHasPlan()
@@ -212,6 +227,15 @@ class StepByStep extends Component
         }
     }
 
+    public function orderHasStepCurrentParams()
+    {
+        $stepParam = $_GET['step'] ?? null;
+
+        if (isset($stepParam) && in_array($stepParam, array_keys($this->steps()))) {
+            $this->stepCurrent = $stepParam;
+        }
+    }
+
     public function updatedSubdomain()
     {
         $this->messageDomain = '';
@@ -220,20 +244,49 @@ class StepByStep extends Component
 
         if (strlen($sub) < 3) {
             $this->messageDomain = 'Subdomínio deve ter no mínimo 3 caracteres.';
+
+            $this->guidance = 'Escolha o seu domínio para prosseguir!';
+
+            $this->buttonNextStatus = false;
+
             return;
         }
 
         $fullDomain = $sub . '.' . $this->domain;
 
-        if (Domain::where('title', $fullDomain)->exists()) {
+        if (Domain::whereHas('order', function (Builder $query) use ($fullDomain) {
+            $query->where('order_id', '!=', $this->order->id)
+                ->where('order_id', NULL)
+                ->where('full_domain', $fullDomain);
+        })->exists()) {
             $this->messageDomain = 'O subdomínio "' . $fullDomain . '" já está em uso.';
 
             $this->availableSubdomain = false;
-        } else {
-            $this->messageDomain = '✅ Subdomínio disponível!';
 
-            $this->availableSubdomain = true;
+            $this->guidance = 'Escolha o seu domínio para prosseguir!';
+
+            $this->buttonNextStatus = false;
+
+            return;
         }
+
+        $domain = Domain::create([
+            'name'        => $this->subdomain,
+            'full_domain' => $fullDomain,
+            'order_id'    => $this->order->id
+        ]);
+
+        $this->order->domain_id = $domain->id;
+
+        $this->order->save();
+
+        $this->messageDomain = '✅ Subdomínio disponível!';
+
+        $this->availableSubdomain = true;
+
+        $this->guidance = 'Prosseguir!';
+
+        $this->buttonNextStatus = true;
     }
 
     public function getValidateStepDomain(): bool
@@ -270,7 +323,7 @@ class StepByStep extends Component
 
         if ($this->showStepCurrent($this->stepCurrent) == 'stepDomain') {
             if ($this->getValidateStepDomain()) {
-                $this->guidance = '1x Plano selecionado';
+                $this->guidance = 'Prosseguir!';
 
                 $this->buttonNextStatus = true;
 
@@ -281,7 +334,7 @@ class StepByStep extends Component
         }
 
         if ($this->showStepCurrent($this->stepCurrent) == 'stepPlans') {
-            if ($this->getValidateFirstStep()) {
+            if ($this->getValidateStepPlans()) {
                 $this->guidance = '1x Plano selecionado';
 
                 $this->buttonNextStatus = true;
@@ -306,6 +359,25 @@ class StepByStep extends Component
 
     public function next()
     {
+        if ($this->showStepCurrent($this->stepCurrent) == 'stepDomain') {
+            if ($this->getValidateStepDomain()) {
+                $this->addStep();
+
+                if ($this->getValidateStepPlans()) {
+
+                    $this->guidance = '1x Modelo selecionado';
+
+                    return;
+                }
+
+                $this->buttonNextStatus = false;
+
+                $this->guidance = '0x Modelo selecionado';
+
+                return;
+            }
+        }
+
         if ($this->showStepCurrent($this->stepCurrent) == 'stepPlans') {
 
             if ($this->getValidateStepPlans()) {
